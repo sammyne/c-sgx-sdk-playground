@@ -1,3 +1,6 @@
 [submodule "benchmarking/vendor/Catch2"]
 	path = benchmarking/vendor/Catch2
 	url = https://github.com/catchorg/Catch2.git
+[submodule "vendor/Catch2"]
+	path = vendor/Catch2
+	url = https://github.com/catchorg/Catch2.git

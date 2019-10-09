@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-#set(enclaveLib ${enclave}.signed.so)
-
 # must-linked libs
 set(cLib sgx_tstdc)
 set(cryptoLib sgx_tcrypto)
@@ -29,12 +27,12 @@ set(LDFLAGS "-Wl,-pie,-eenclave_entry \
 	-nostdlib -nodefaultlibs -nostartfiles -Wl,--no-undefined \
 	-L${sgxLibPath} \
 	-Wl,--whole-archive -l${rtsLib} -Wl,--no-whole-archive \
-	-Wl,--start-group -l${cLib} -l${serviceLib} -l${cryptoLib} \
-	-l${cxxLib} -Wl,--end-group \
+	-Wl,--start-group -l${cLib} -l${serviceLib} -l${cxxLib} \
+    -l${cryptoLib} -Wl,--end-group \
 	-Wl,-Bstatic -Wl,-Bsymbolic -Wl,--defsym=__ImageBase=0 -Wl,--export-dynamic")
 
-set(bridgeImpl ${CMAKE_CURRENT_BINARY_DIR}/${enclave}_t.c) 
-set(bridge ${CMAKE_CURRENT_BINARY_DIR}/${enclave}_t.h ${bridgeImpl})
+set(bridgeImpl ${CMAKE_CURRENT_BINARY_DIR}/enclave_t.c) 
+set(bridge ${CMAKE_CURRENT_BINARY_DIR}/enclave_t.h ${bridgeImpl})
 
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} srcs)
 set(srcs "${srcs};${bridgeImpl}")
@@ -57,13 +55,3 @@ add_custom_command(TARGET ${enclave} POST_BUILD
         -out ${enclaveLib} -config ${config}
     COMMENT "[SIGN] lib${enclave}.so => ${enclaveLib}"
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-
-# the custom_command above can be replaced with below
-#add_custom_target(${enclaveLib} ALL
-#    ${sgxSigner} sign -key ${key} -enclave lib${enclave}.so 
-#        -out ${enclaveLib} -config ${config}
-#    BYPRODUCTS ${enclaveLib}
-#    COMMENT "[SIGN] lib${enclave}.so => ${enclaveLib}"
-#    DEPENDS ${enclave}
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-
