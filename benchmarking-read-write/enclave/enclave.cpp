@@ -8,7 +8,7 @@ void ecall_increment(int *arr, size_t arr_len)
     }
 }
 
-void ecall_read_protected(const int *arr, size_t arr_len)
+int ecall_read_protected(const int *arr, size_t arr_len)
 {
     int buf = 0;
     for (size_t i = 0; i < arr_len; i++)
@@ -16,7 +16,7 @@ void ecall_read_protected(const int *arr, size_t arr_len)
         buf = arr[i];
     }
 
-    auto _ = buf;
+    return buf;
 }
 
 int ecall_read_unprotected(const int *arr, size_t arr_len)

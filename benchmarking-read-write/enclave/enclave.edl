@@ -2,7 +2,7 @@ enclave {
   trusted {
     public void ecall_increment([in,size=arr_len] int *arr, size_t arr_len);
 
-    public void ecall_read_protected([in,size=arr_len] const int *arr, size_t arr_len);
+    public int ecall_read_protected([in,size=arr_len] const int *arr, size_t arr_len);
     public int ecall_read_unprotected([user_check] const int *arr, size_t arr_len);
   };
 };
