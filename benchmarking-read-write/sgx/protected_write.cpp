@@ -13,7 +13,7 @@ using namespace std;
 
 using defer = shared_ptr<void>;
 
-#define DO_BENCHMARK_READ(title, msg_size)           \
+#define DO_BENCHMARK_INCREMENT(title, msg_size)      \
     {                                                \
         vector<int> arr(arr_len);                    \
         std::iota(arr.begin(), arr.end(), 0);        \
@@ -46,10 +46,10 @@ TEST_CASE("sgx-protected/write", "[benchmark]")
     }
     defer _1(nullptr, [&](...) { unload_enclave(enclave_id); });
 
-    for (size_t sz = 16; sz <= 16; sz <<= 1)
+    for (size_t sz = 16; sz <= 2048; sz <<= 1)
     {
         auto title = std::to_string(sz) + "M";
         auto arr_len = (sz << 20) / sizeof(int);
-        DO_BENCHMARK_READ(title.c_str(), arr_len);
+        DO_BENCHMARK_INCREMENT(title.c_str(), arr_len);
     }
 }
