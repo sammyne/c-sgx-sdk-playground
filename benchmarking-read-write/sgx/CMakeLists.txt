@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(program benchmarking-sgx)
+set(program benchmark-sgx)
 
 # following definition to enable benchmarking for Catch2
 add_compile_definitions(

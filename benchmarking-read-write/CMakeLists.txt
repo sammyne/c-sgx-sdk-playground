@@ -14,5 +14,6 @@ set(catch2Path ${vendorDir}/Catch2/single_include)
 set(utilsPath ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
 add_subdirectory(enclave)
-#add_subdirectory(non-sgx)
+
+add_subdirectory(non-sgx)
 add_subdirectory(sgx)
