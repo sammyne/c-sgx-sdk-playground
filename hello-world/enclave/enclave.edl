@@ -1,0 +1,12 @@
+enclave {
+  trusted {
+    // @dev 'count' instead of 'size' should be used due to sizeof(int)!=1
+    public void ecall_increment([in, out, count=arr_len] int *arr, size_t arr_len);
+
+    public sgx_status_t ecall_say_hello_to([in, string] const char *who);
+  };
+
+  untrusted {
+    void ocall_say_hello_to([in, string] const char *who);
+  };
+};

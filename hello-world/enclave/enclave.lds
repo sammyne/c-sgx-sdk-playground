@@ -1,0 +1,9 @@
+kmeans.so
+{
+  global:
+    enclave_entry;
+    g_global_data_sim;
+    g_peak_heap_used;
+  local:
+    *;
+};
